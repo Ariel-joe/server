@@ -1,0 +1,3 @@
+Name: Ariel Joe
+Role: Developer
+Skills: JavaScript, Node.js
