@@ -4,7 +4,13 @@ const path = require("path");
 
 const app = express();
 
-app.get("/", (req, res) => {
+app.use(express.static(path.join(__dirname, "public")))
+
+app.get("/" || "/home", (req, res) => {
+    res.sendFile(path.join(__dirname, "pages", "index.html"))
+});
+
+app.get("/home", (req, res) => {
     res.sendFile(path.join(__dirname, "pages", "index.html"))
 });
 
@@ -16,6 +22,17 @@ app.get("/contact", (req, res) => {
     res.sendFile(path.join(__dirname, "pages", "contact.html"))
 })
 
+// form handling in express;
+app.get("/submit-contact", (req, res) => {
+    const name = req.query.name || "Anonymous";
+    const message = req.query.message || "NO message provided"
+
+
+    res.send(
+`        <h1>Thank You, ${name}!</h1>
+        <p>Your message: ${message}</p>`
+    )
+})
 
 app.use((req, res) => {
     res.status(404).sendFile(path.join(__dirname, "pages", "404.html"))
